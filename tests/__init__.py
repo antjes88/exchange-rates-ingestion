@@ -1,9 +1,9 @@
 import os
-from src.utils.env_var_loader import env_var_loader
 import sys
+from dotenv import load_dotenv
 
 # load env vars
-env_var_loader("tests/.env")
+load_dotenv(dotenv_path="tests/.env", override=True)
 
 # load path to get python files
 sys.path.append(os.path.join(os.getcwd(), "src"))

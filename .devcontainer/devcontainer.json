@@ -17,7 +17,6 @@
                 "ms-python.python",
                 "ms-python.black-formatter",
                 "ms-azuretools.vscode-docker",
-                "gruntfuggly.todo-tree",
                 "redhat.vscode-yaml",
                 "meezilla.json",
                 "mechatroner.rainbow-csv",

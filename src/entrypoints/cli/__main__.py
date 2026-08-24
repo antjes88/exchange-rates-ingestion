@@ -1,8 +1,7 @@
 import click
 from src.entrypoints.cli.get_ecb_rates import get_ecb_rates
 import warnings
-from src.utils.env_var_loader import env_var_loader
-
+from dotenv import load_dotenv
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -15,5 +14,5 @@ def cli():
 cli.add_command(get_ecb_rates)
 
 if __name__ == "__main__":
-    env_var_loader(".env")
+    load_dotenv(dotenv_path=".env", override=True)
     cli()

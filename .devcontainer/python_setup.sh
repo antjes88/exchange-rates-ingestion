@@ -4,7 +4,7 @@ set -e
 
 printf "\n \e[32mSetting up Python environment...\e[0m\n"
 rm -rf venv
-python3.10 -m venv ./venv
+python3.12 -m venv ./venv
 source ./venv/bin/activate
 printf "\n \e[32mPython environment created.\e[0m\n"
 

@@ -1,7 +1,7 @@
 name: terraform-validate
 
 permissions:
-  id-token: write 
+  id-token: write
   contents: write
   pull-requests: write
 
@@ -34,19 +34,20 @@ jobs:
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
         with:
           terraform_version: 1.6.6
-      
+
       - name: Fetch GCP Key
         uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f # v2.1.7
         with:
           create_credentials_file: true
-          workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
-          service_account: '${{ secrets.SERVICE_ACCOUNT_EMAIL }}'
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "${{ secrets.SERVICE_ACCOUNT_EMAIL }}"
 
       - name: Set permissions for the credentials file
         run: chmod 644 $GOOGLE_APPLICATION_CREDENTIALS
-      
+
       - name: Terraform validate
         run: |
+          cd ./terraform
           echo "Initializing Terraform..."
           terraform init
 
