@@ -5,7 +5,6 @@ from src import source_repository, destination_repository, services, model
 from src.utils.gcp_clients import create_bigquery_client
 from src.utils.logs import default_module_logger
 
-
 logger = default_module_logger(__file__)
 
 
@@ -42,8 +41,10 @@ def get_ecb_rates(currency: Tuple[str], days: int) -> None:
         logger.info(f"'{currency_pair}'.")
     logger.info(f"Number of days to register: {days}.")
 
-    bq_repository = destination_repository.BiqQueryDestinationRepository(
+    bq_repository = destination_repository.BigQueryDestinationRepository(
         create_bigquery_client(os.environ["PROJECT"])
     )
     ecb_api_caller = source_repository.EcbApiCaller(days_to_register=days)
     services.source_exchange_rates(bq_repository, currency_pairs, ecb_api_caller)
+
+    logger.info("Process completed successfully!!!")

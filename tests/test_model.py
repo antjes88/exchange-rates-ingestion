@@ -3,42 +3,6 @@ import datetime as dt
 import pytest
 
 
-def test_exchange_rates_equality():
-    """
-    GIVEN 2 exchange rates that are equal for: date, exchange_rate,
-      currency_pair and source
-    WHEN they are checked for equality
-    THEN the result should be that exchange rates are equal no matter that
-        creation date is different
-    """
-    date = dt.date(2021, 10, 10)
-    exchange_rate = 0.05
-    currency_pair = model.CurrencyPair("GBP", "USD")
-    source = "test"
-
-    assert model.ExchangeRate(
-        date=date,
-        exchange_rate=exchange_rate,
-        currency_pair=currency_pair,
-        source=source,
-        creation_date=dt.datetime(
-            1990,
-            1,
-            1,
-        ),
-    ) == model.ExchangeRate(
-        date=date,
-        exchange_rate=exchange_rate,
-        currency_pair=currency_pair,
-        source=source,
-        creation_date=dt.datetime(
-            2020,
-            12,
-            12,
-        ),
-    )
-
-
 @pytest.mark.parametrize(
     "date_left, date_right, exchange_rate_left, exchange_rate_right"
     ", currency_pair_left, currency_pair_right, source_left, source_right",
@@ -101,24 +65,17 @@ def test_exchange_rate_inequality(
     WHEN they are checked for equality
     THEN the result should be that exchange rates are NOT equal
     """
-    creation_date = dt.datetime(
-        1990,
-        1,
-        1,
-    )
 
     assert model.ExchangeRate(
         date=date_left,
         exchange_rate=exchange_rate_left,
         currency_pair=currency_pair_left,
         source=source_left,
-        creation_date=creation_date,
     ) != model.ExchangeRate(
         date=date_right,
         exchange_rate=exchange_rate_right,
         currency_pair=currency_pair_right,
         source=source_right,
-        creation_date=creation_date,
     )
 
 

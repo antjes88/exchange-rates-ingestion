@@ -5,7 +5,7 @@ from src import model, destination_repository
 
 def test_load_exchange_rates(
     repository_with_exchange_rates: Tuple[
-        destination_repository.BiqQueryDestinationRepository,
+        destination_repository.BigQueryDestinationRepository,
         List[model.ExchangeRate],
     ],
 ):
@@ -27,7 +27,6 @@ def test_load_exchange_rates(
                 exchange_rate=row.exchange_rate,
                 currency_pair=model.CurrencyPair(row.base_currency, row.quote_currency),
                 source=row.source,
-                creation_date=row.creation_date,
             )
         )
 
