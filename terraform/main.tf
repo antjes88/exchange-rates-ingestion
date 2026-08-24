@@ -65,7 +65,7 @@ resource "google_cloudfunctions2_function" "default" {
   location = var.region
 
   build_config {
-    runtime     = "python310"
+    runtime     = "python312"
     entry_point = var.function_entry_point
     source {
       storage_source {
