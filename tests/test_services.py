@@ -6,7 +6,7 @@ from src import services, model, destination_repository, source_repository
 
 def test_source_exchange_rates(
     repository_with_exchange_rates: Tuple[
-        destination_repository.BiqQueryDestinationRepository,
+        destination_repository.BigQueryDestinationRepository,
         List[model.ExchangeRate],
     ],
     fake_ecb_api: Tuple[
@@ -38,7 +38,6 @@ def test_source_exchange_rates(
                 exchange_rate=row.exchange_rate,
                 currency_pair=model.CurrencyPair(row.base_currency, row.quote_currency),
                 source=row.source,
-                creation_date=row.creation_date,
             )
         )
 

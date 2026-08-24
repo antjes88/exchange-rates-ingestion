@@ -9,16 +9,10 @@ from src.utils.gcp_clients import create_bigquery_client
 
 
 @pytest.fixture(scope="session")
-def bq_repository() -> destination_repository.BiqQueryDestinationRepository:
-    """
-    Fixture that returns instance of BiqQueryDestinationRepository
-    instantiated with test parameters.
+def bq_repository() -> destination_repository.BigQueryDestinationRepository:
 
-    Returns:
-        instance of BiqQueryDestinationRepository
-    """
     client = create_bigquery_client(os.environ["PROJECT"])
-    bq_repository = destination_repository.BiqQueryDestinationRepository(client)
+    bq_repository = destination_repository.BigQueryDestinationRepository(client)
     bq_repository.exchange_rates_destination = (
         os.environ["DATASET"] + "." + os.environ["DESTINATION_TABLE"]
     )
@@ -28,25 +22,16 @@ def bq_repository() -> destination_repository.BiqQueryDestinationRepository:
 
 @pytest.fixture(scope="function")
 def repository_with_exchange_rates(
-    bq_repository: destination_repository.BiqQueryDestinationRepository,
+    bq_repository: destination_repository.BigQueryDestinationRepository,
 ) -> Generator[
     Tuple[
-        destination_repository.BiqQueryDestinationRepository,
+        destination_repository.BigQueryDestinationRepository,
         List[model.ExchangeRate],
     ],
     None,
     None,
 ]:
-    """
-    Fixture that creates an exchange rates table and loads some dummy table
-    on it on destination BigQuery project. Deletes table during tear down.
 
-    Args:
-        bq_repository: instance of BiqQueryDestinationRepository
-    Yields:
-        instance of BiqQueryDestinationRepository where a cashflow table has been created
-        List of ExchangeRate objects that have been loaded into the table
-    """
     bq_repository.load_exchange_rates(EXCHANGE_RATES)
 
     yield bq_repository, EXCHANGE_RATES
@@ -62,16 +47,7 @@ def fake_ecb_api() -> Tuple[
     List[model.ExchangeRate],
     List[model.CurrencyPair],
 ]:
-    """
-    Pytest fixture that provides a fake ECB API caller and expected exchange rates for testing purposes.
-    This fixture creates an instance of EcbApiCallerFake with predefined API responses
-    and generates a list of expected exchange rates for different currencies from given API responses.
 
-    Returns:
-        Fake ECB API caller for testing purposes.
-        List of expected exchange rates for testing returned by fake ECB Api Caller.
-        List of currency pairs for which the fake API responses are provided.
-    """
     api_responses = {
         "GBP": "tests/data/xml_ecb_test.xml",
         "USD": "tests/data/xml_ecb_test.xml",

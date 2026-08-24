@@ -2,7 +2,6 @@ from src import source_repository, destination_repository, services, model
 from src.utils.gcp_clients import create_bigquery_client
 from src.utils.logs import default_module_logger
 
-
 logger = default_module_logger(__file__)
 
 
@@ -25,7 +24,7 @@ def function_entry_point(event, context):
     """
 
     client = create_bigquery_client()
-    bq_repository = destination_repository.BiqQueryDestinationRepository(client)
+    bq_repository = destination_repository.BigQueryDestinationRepository(client)
     days = 10
     ecb_api_caller = source_repository.EcbApiCaller(days)
     currency_pairs = [
@@ -38,3 +37,5 @@ def function_entry_point(event, context):
     logger.info(f"Number of days to register: {days}.")
 
     services.source_exchange_rates(bq_repository, currency_pairs, ecb_api_caller)
+
+    logger.info("Process completed successfully!!!")
